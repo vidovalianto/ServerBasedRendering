@@ -25,7 +25,13 @@ struct TextfieldView: View {
   @ObservedObject private var textfieldVM = TextFieldViewModel()
   
   var body: some View {
-    TextField(self.placeholder,
-              text: $textfieldVM.text)
+    HStack {
+      TextField(self.placeholder,
+                text: $textfieldVM.text)
+      
+      Button("Search", action: {
+        print("Search")
+      })
+    }
   }
 }

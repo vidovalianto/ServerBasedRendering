@@ -8,7 +8,6 @@
 import Combine
 import Foundation
 
-
 enum NetworkError: Error, CustomNSError {
   case invalidURL, invalidResponse, noData
   

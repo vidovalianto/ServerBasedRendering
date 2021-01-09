@@ -25,12 +25,18 @@ struct CircularPhotoView: View {
   
   var body: some View {
     if let image = photoVM.image {
-      Image(uiImage: image)
-        .resizable()
-        .clipShape(Circle())
-        .frame(minWidth: 100,
-               maxHeight: 100,
-               alignment: .center)
+      VStack {
+        Image(uiImage: image)
+          .resizable()
+          .clipShape(Circle())
+          .frame(minWidth: 100,
+                 maxHeight: 100,
+                 alignment: .center)
+        
+        Spacer()
+        
+        Text(model.name)
+      }
     } else {
       Image(systemName: "icloud.and.arrow.down")
         .resizable()
