@@ -17,8 +17,14 @@ final class PhotoViewModel: ObservableObject {
       .getRequest(urlString) {
         UIImage(data: $0)
       }
+      .subscribe(on: Self.queue)
       .replaceError(with: nil)
+      .receive(on: DispatchQueue.main)
       .assign(to: \.image, on: self)
       .store(in: &cancellable)
   }
+}
+
+extension PhotoViewModel {
+  private static let queue = DispatchQueue(label: "com.vido.photoviewmodel")
 }

@@ -21,8 +21,14 @@ final class TemplateViewModel: ObservableObject {
                   { try JSONDecoder()
                     .decode(TemplateModel.self,
                             from: $0) })
+      .subscribe(on: Self.queue)
       .replaceError(with: nil)
+      .receive(on: DispatchQueue.main)
       .assign(to: \.template, on: self)
       .store(in: &cancellable)
   }
+}
+
+extension TemplateViewModel {
+  private static let queue = DispatchQueue(label: "com.vido.templateviewmodel")
 }

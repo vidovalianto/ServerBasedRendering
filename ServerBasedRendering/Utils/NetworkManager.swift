@@ -36,6 +36,7 @@ public final class NetworkManager {
     }
     
     return URLSession.shared.dataTaskPublisher(for: url)
+      .subscribe(on: queue)
       .retry(3)
       .mapError({ error -> Error in
           switch error {
@@ -49,7 +50,6 @@ public final class NetworkManager {
       })
       .map { $0.data }
       .tryMap { try decoder($0) }
-      .subscribe(on: queue)
       .receive(on: DispatchQueue.main)
       .eraseToAnyPublisher()
   }
